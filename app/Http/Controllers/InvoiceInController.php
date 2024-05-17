@@ -1,9 +1,8 @@
 <?php
 
-// app/Http/Controllers/InvoiceInController.php
-
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\InvoiceIn;
 use App\Models\InvoiceInItem;
@@ -13,7 +12,7 @@ class InvoiceInController extends Controller
 {
     public function index()
     {
-        $invoices = InvoiceIn::get(); // Mendapatkan semua invoice_in beserta relasi sepatu
+        $invoices = InvoiceIn::with('items.sepatu')->get(); // Mendapatkan semua invoice_in beserta relasi sepatu
         return view('invoiceIn.index', compact('invoices'));
     }
 
@@ -22,7 +21,6 @@ class InvoiceInController extends Controller
         $sepatuItems = Sepatu::all(); // Ambil semua data sepatu dari model Sepatu
         return view('invoiceIn.create', compact('sepatuItems'));
     }
-
 
     public function store(Request $request)
     {
@@ -60,6 +58,6 @@ class InvoiceInController extends Controller
     public function show($id)
     {
         $invoiceIn = InvoiceIn::with('items.sepatu')->findOrFail($id);
-        return view('invoicein.show', compact('invoiceIn'));
+        return view('invoiceIn.show', compact('invoiceIn'));
     }
 }

@@ -7,7 +7,7 @@
 
                 <div class="row g-3 mb-4 align-items-center justify-content-between">
                     <div class="col-auto">
-                        <h1 class="app-page-title mb-0">Orders</h1>
+                        <h1 class="app-page-title mb-0">Invoice Masuk</h1>
                     </div>
                     <div class="col-auto">
                         <div class="page-utilities">
@@ -56,22 +56,37 @@
                                     <table class="table app-table-hover mb-0 text-left">
                                         <thead>
                                             <tr>
-                                                <th class="cell">Nomor Invoice</th>
-                                                <th class="cell">Tanggal</th>
-                                                <th class="cell">Subtotal (Rp)</th>
-                                                <th class="cell">Aksi</th>
+                                                <th class="cell">
+                                                    <div class="text-center">No</div>
+                                                </th>
+                                                <th class="cell">
+                                                    <div class="text-center">ID Invoice</div>
+                                                </th>
+                                                <th class="cell">
+                                                    <div class="text-center">Tanggal</div>
+                                                </th>
+                                                <th class="cell">
+                                                    <div class="text-center">Subtotal</div>
+                                                </th>
+                                                <th class="cell">
+                                                    <div class="text-center">Detail</div>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($invoices as $invoice)
-                                                <tr>
+                                            @foreach ($invoices as $index => $invoice)
+                                                <tr class="text-center">
+                                                    <td class="cell">{{ $index + 1 }}</td>
                                                     <td class="cell">{{ $invoice->nomor }}</td>
-                                                    <td class="cell"><span>{{ $invoice->tgl }}</span><span
-                                                            class="note">2:16 PM</span></td>
-                                                    <td class="cell">{{ number_format($invoice->total, 2) }}
+                                                    <td class="cell">
+                                                        <span>{{ \Carbon\Carbon::parse($invoice->tgl)->format('d M Y') }}</span>
+                                                        <span
+                                                            class="note">{{ \Carbon\Carbon::parse($invoice->created_at)->format('g:i A') }}</span>
                                                     </td>
-                                                     <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                            href="{{ route('invoiceIn.show', $invoice->id) }}">View</a></td> 
+                                                    <td class="cell">Rp. {{ number_format($invoice->total) }}
+                                                    </td>
+                                                    <td class="cell"><a class="btn-sm app-btn-secondary"
+                                                            href="{{ route('invoiceIn.show', $invoice->id) }}">View</a></td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
