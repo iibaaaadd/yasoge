@@ -13,7 +13,7 @@
                         <div class="page-utilities">
                             <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
                                 <div class="col-auto">
-                                    <form class="table-search-form row gx-1 align-items-center">
+                                    <form class="table-search-form row gx-1 align-items-center" id="search-form">
                                         <div class="col-auto">
                                             <input type="text" id="search-orders" name="searchorders"
                                                 class="form-control search-orders" placeholder="Search">
@@ -22,13 +22,13 @@
                                             <button type="submit" class="btn app-btn-secondary">Search</button>
                                         </div>
                                     </form>
-                                </div><!--//col-->
+                                </div>
                                 <div class="col-auto">
-                                    <select class="form-select w-auto">
-                                        <option selected value="option-1">All</option>
-                                        <option value="option-2">This week</option>
-                                        <option value="option-3">This month</option>
-                                        <option value="option-4">Last 3 months</option>
+                                    <select class="form-select w-auto" id="filter-options">
+                                        <option selected value="all">All</option>
+                                        <option value="week">This week</option>
+                                        <option value="month">This month</option>
+                                        <option value="three-months">Last 3 months</option>
                                     </select>
                                 </div>
                                 <div class="col-auto">
@@ -47,7 +47,60 @@
                         </div><!--//table-utilities-->
                     </div><!--//col-auto-->
                 </div><!--//row-->
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const searchInput = document.getElementById('search-orders');
+                        const filterOptions = document.getElementById('filter-options');
+                        const invoiceRows = document.querySelectorAll('tbody tr');
+                        const form = document.getElementById('search-form');
 
+                        form.addEventListener('submit', function(event) {
+                            event.preventDefault();
+                            filterInvoices();
+                        });
+
+                        filterOptions.addEventListener('change', filterInvoices);
+
+                        function filterInvoices() {
+                            const searchText = searchInput.value.toLowerCase();
+                            const filterValue = filterOptions.value;
+                            const currentDate = new Date();
+
+                            invoiceRows.forEach(row => {
+                                const invoiceNumber = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                                const invoiceDate = new Date(row.querySelector('td:nth-child(3) span').textContent);
+                                let showRow = true;
+
+                                // Filter by search text
+                                if (searchText && !invoiceNumber.includes(searchText)) {
+                                    showRow = false;
+                                }
+
+                                // Filter by date
+                                if (filterValue !== 'all') {
+                                    const timeDifference = currentDate - invoiceDate;
+                                    const daysDifference = timeDifference / (1000 * 3600 * 24);
+
+                                    if (filterValue === 'week' && daysDifference > 7) {
+                                        showRow = false;
+                                    } else if (filterValue === 'month' && daysDifference > 30) {
+                                        showRow = false;
+                                    } else if (filterValue === 'three-months' && daysDifference > 90) {
+                                        showRow = false;
+                                    }
+                                }
+
+                                // Show or hide the row
+                                if (showRow) {
+                                    row.style.display = '';
+                                } else {
+                                    row.style.display = 'none';
+                                }
+                            });
+                        }
+                    });
+                </script>
+                
                 <div class="tab-content" id="orders-table-tab-content">
                     <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
                         <div class="app-card app-card-orders-table shadow-sm mb-5">
