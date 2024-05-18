@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ asset('logo/Yasoge.png') }}" type="image/x-icon">x
     <!-- Tag untuk Judul -->
     <title>Yasoge</title>
@@ -214,6 +214,10 @@
     <!-- Javascript -->
     <script src="{{ asset('assets/plugins/popper.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+    
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <!-- Letakkan di bagian bawah sebelum penutup tag </body> -->
 
     <!-- Charts JS -->

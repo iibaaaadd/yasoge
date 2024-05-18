@@ -14,7 +14,6 @@ class CreateInvoiceInItemsTable extends Migration
             $table->unsignedBigInteger('sepatu_id');
             $table->integer('jumlah');
             $table->decimal('harga', 10, 2);
-            $table->decimal('total', 10, 2);
             $table->timestamps();
 
             // Definisi foreign key

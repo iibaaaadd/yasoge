@@ -47,7 +47,6 @@ class InvoiceInController extends Controller
                 'sepatu_id' => $item['sepatu_id'],
                 'jumlah' => $item['jumlah'],
                 'harga' => $item['harga'],
-                'total' => $item['jumlah'] * $item['harga'],
             ]);
         }
 

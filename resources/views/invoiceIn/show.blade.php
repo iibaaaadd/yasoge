@@ -27,7 +27,6 @@
                                                 <th class="cell">Kode</th>
                                                 <th class="cell">Jumlah</th>
                                                 <th class="cell">Harga</th>
-                                                <th class="cell">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -35,19 +34,22 @@
                                                 <tr class="text-center">
                                                     <td class="cell">{{ $item->sepatu->kode }}</td>
                                                     <td class="cell">{{ $item->jumlah }}</td>
-                                                    <td class="cell">Rp. {{ number_format($item->harga) }}
-                                                    </td>
-                                                    <td class="cell">Rp. {{ number_format($item->total) }}
-                                                    </td>
+                                                    <td class="cell">Rp. {{ number_format($item->harga) }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
+                                        <tr class="text-center">
+                                            <td class="cell" colspan="2"><strong>TOTAL</strong></td>
+                                            <td class="cell"><strong></strong>Rp. {{ number_format($invoiceIn->total) }}
+                                            </td>
+                                        </tr>
                                     </table>
                                 </div><!--//table-responsive-->
                             </div><!--//app-card-body-->
                         </div><!--//app-card-->
                         <td class="cell"><a class="btn-sm app-btn-secondary"
-                                href="{{ route('invoiceIn.index') }}">Back</a></td>
+                                href="{{ route('invoiceIn.index') }}">Back</a>
+                        </td>
                     </div>
                 </div>
             </div>

@@ -9,7 +9,7 @@ class InvoiceInItem extends Model
 {
     protected $table = 'invoice_in_items';
 
-    protected $fillable = ['invoice_in_id', 'sepatu_id', 'jumlah', 'harga', 'total'];
+    protected $fillable = ['invoice_in_id', 'sepatu_id', 'jumlah', 'harga'];
 
     public function invoiceIn()
     {

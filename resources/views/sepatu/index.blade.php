@@ -1,5 +1,3 @@
-<!-- resources/views/sepatu/index.blade.php -->
-
 @extends('layouts.app')
 
 @section('content')
@@ -14,7 +12,7 @@
                         <div class="page-utilities">
                             <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
                                 <div class="col-auto">
-                                    <form class="docs-search-form row gx-1 align-items-center">
+                                    <form class="docs-search-form row gx-1 align-items-center" id="search-form">
                                         <div class="col-auto">
                                             <input type="text" id="search-docs" name="searchdocs"
                                                 class="form-control search-docs" placeholder="Search">
@@ -23,7 +21,6 @@
                                             <button type="submit" class="btn app-btn-secondary">Search</button>
                                         </div>
                                     </form>
-
                                 </div><!--//col-->
                                 <div class="col-auto">
                                     <a class="btn app-btn-primary" data-bs-toggle="modal"
@@ -42,14 +39,12 @@
                     </div><!--//col-auto-->
                 </div>
             </div><!--//row-->
-            <div class="row">
+            <div class="row" id="sepatu-list">
                 @foreach ($sepatu as $item)
-                    <div class="col-6 col-md-4 col-xl-3 col-xxl-3 mt-4">
+                    <div class="col-6 col-md-4 col-xl-3 col-xxl-3 mt-4 sepatu-item">
                         <div class="app-card app-card-doc shadow-sm h-100">
                             <div class="app-card-thumb-holder p-3">
-
                                 <img width="70px" src="{{ asset('foto') }}/{{ $item->gambar }}" alt="">
-
                                 <a class="app-card-link-mask" href="#file-link"></a>
                             </div>
                             <div class="app-card-body p-3 has-card-actions">
@@ -119,9 +114,11 @@
                 <div class="modal fade" id="tambahSepatuModal" tabindex="-1" role="dialog"
                     aria-labelledby="tambahSepatuModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                        <div class="modal-content p-md-3 ">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="tambahSepatuModalLabel">Tambah Sepatu</h5>
+                                <h3 class="modal-title" id="tambahSepatuModalLabel">
+                                    <h3 class="section-title">Sepatu</h3>
+                                </h3>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -130,23 +127,28 @@
                                 @csrf
                                 <div class="modal-body">
                                     <div class="form-group">
-                                        <label for="kode">Kode</label>
+                                        <label for="kode">
+                                            <h6 class="mb-0 fw-bold">Kode</h6>
+                                        </label>
                                         <input type="text" class="form-control" id="kode" name="kode"
                                             required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="harga">Harga</label>
+                                        <label for="harga">
+                                            <h6 class="mb-0 fw-bold">Harga</h6>
+                                        </label>
                                         <input type="number" class="form-control" id="harga" name="harga"
                                             step="0.01" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="gambar">Gambar</label>
+                                        <label for="gambar">
+                                            <h6 class="mb-0 fw-bold mb-2">Gambar</h6>
+                                        </label>
                                         <input type="file" class="form-control-file" id="gambar" name="gambar"
                                             required>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </div>
                             </form>
@@ -156,4 +158,22 @@
             </div><!--//container-fluid-->
         </div><!--//app-content-->
     </div>
+
+    <script>
+        document.getElementById('search-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting in the traditional way
+            const searchTerm = document.getElementById('search-docs').value.toLowerCase();
+            const items = document.querySelectorAll('.sepatu-item');
+
+            items.forEach(item => {
+                const kode = item.querySelector('.app-doc-title a').textContent.toLowerCase();
+                const nama = item.querySelector('.app-doc-meta').textContent.toLowerCase();
+                if (kode.includes(searchTerm) || nama.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
 @endsection
