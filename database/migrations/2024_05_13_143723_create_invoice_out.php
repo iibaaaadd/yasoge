@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('invoice_out', function (Blueprint $table) {
+        Schema::create('invoice_outs', function (Blueprint $table) {
             $table->id();
+            $table->string('nomor')->unique();
+            $table->date('tgl');
+            $table->decimal('total', 10, 2);
             $table->timestamps();
         });
     }

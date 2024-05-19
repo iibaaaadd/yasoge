@@ -12,8 +12,8 @@ class InvoiceInController extends Controller
 {
     public function index()
     {
-        $invoices = InvoiceIn::with('items.sepatu')->get(); // Mendapatkan semua invoice_in beserta relasi sepatu
-        return view('invoiceIn.index', compact('invoices'));
+        $invoiceIn = InvoiceIn::with('items.sepatu')->get(); // Mendapatkan semua invoice_in beserta relasi sepatu
+        return view('invoiceIn.index', compact('invoiceIn'));
     }
 
     public function create()
@@ -52,11 +52,5 @@ class InvoiceInController extends Controller
 
         // Redirect ke halaman index invoice dengan pesan sukses
         return redirect()->route('invoiceIn.index')->with('success', 'Invoice berhasil disimpan.');
-    }
-
-    public function show($id)
-    {
-        $invoiceIn = InvoiceIn::with('items.sepatu')->findOrFail($id);
-        return view('invoiceIn.show', compact('invoiceIn'));
     }
 }
