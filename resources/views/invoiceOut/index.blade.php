@@ -165,7 +165,6 @@
                                 </div><!--//table-responsive-->
                             </div><!--//app-card-body-->
                         </div><!--//app-card-->
-                        
                     </div>
                 </div>
             </div>
