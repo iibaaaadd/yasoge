@@ -48,19 +48,22 @@ class SepatuController extends Controller
 
         $sepatu = Sepatu::findOrFail($id);
 
-        // Penanganan unggahan foto
+        // Handle image upload
         if ($request->hasFile('gambar')) {
             $image = $request->file('gambar');
-            $imageName = time() . '.' . $image->extension(); // Atur nama file unik
-            $image->move(public_path('foto'), $imageName); // Pindahkan file ke direktori yang ditentukan
-            $validatedData['gambar'] = $imageName; // Simpan nama file ke dalam data yang akan disimpan
+            $imageName = time() . '.' . $image->extension(); // Generate a unique file name
+            $image->move(public_path('foto'), $imageName); // Move the file to the specified directory
+            $validatedData['gambar'] = $imageName; // Save the file name to the data to be saved
         } else {
             $validatedData['gambar'] = $sepatu->gambar;
         }
 
         $sepatu->update($validatedData);
 
-        return redirect()->route('sepatu.index')->with('success', 'Sepatu berhasil diperbarui.');
+        // Fetch the updated timestamp
+        $updatedAt = $sepatu->updated_at->format('d-m-Y H:i:s');
+
+        return redirect()->route('sepatu.index')->with('success', 'Sepatu berhasil diperbarui. Diperbarui pada: ' . $updatedAt);
     }
 
     public function destroy($id)

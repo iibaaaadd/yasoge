@@ -145,76 +145,73 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($invoiceIn as $index => $invoiceIn)
+                                            @foreach ($invoiceIn as $index => $invoice)
                                                 <tr class="text-center">
                                                     <td class="cell">{{ $index + 1 }}</td>
-                                                    <td class="cell">{{ $invoiceIn->nomor }}</td>
+                                                    <td class="cell">{{ $invoice->nomor }}</td>
                                                     <td class="cell">
-                                                        <span>{{ \Carbon\Carbon::parse($invoiceIn->tgl)->format('d M Y') }}</span>
+                                                        <span>{{ \Carbon\Carbon::parse($invoice->tgl)->format('d M Y') }}</span>
                                                         <span
-                                                            class="note">{{ \Carbon\Carbon::parse($invoiceIn->created_at)->format('g:i A') }}</span>
+                                                            class="note">{{ \Carbon\Carbon::parse($invoice->created_at)->format('g:i A') }}</span>
                                                     </td>
-                                                    <td class="cell">Rp. {{ number_format($invoiceIn->total) }}
+                                                    <td class="cell">Rp. {{ number_format($invoice->total) }}
                                                     </td>
                                                     <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                            data-bs-toggle="modal" data-bs-target="#invoiceModal">View</a>
+                                                            data-bs-toggle="modal" data-bs-target="#invoiceModal-{{ $invoice->id }}">View</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    <div class="modal fade" id="invoiceModal" tabindex="-1"
-                                        aria-labelledby="invoiceModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content p-md-3">
-                                                <div class="modal-header">
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="row g-3 mb-3 align-items-center justify-content-between">
-                                                        <div class="col-auto">
-                                                            <h5 class="app-page-title mb-0">
-                                                                {{ $invoiceIn->nomor }}
-                                                            </h5>
-                                                        </div>
-                                                        <div class="col-auto">
-                                                            <div style="font-size: 1rem; margin-top: 10px;">
-                                                                <i>{{ \Carbon\Carbon::parse($invoiceIn->tgl)->format('d M Y') }}</i>
+                                    @foreach ($invoiceIn as $index => $invoice)
+                                        <div class="modal fade" id="invoiceModal-{{ $invoice->id }}" tabindex="-1"
+                                            aria-labelledby="invoiceModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content p-md-3">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div
+                                                            class="row g-3 mb-3 align-items-center justify-content-between">
+                                                            <div class="col-auto">
+                                                                <h5 class="app-page-title mb-0">
+                                                                    {{ $invoice->nomor }}
+                                                                </h5>
                                                             </div>
-                                                        </div><!--//col-auto-->
-                                                    </div><!--//row-->
-                                                    <div class="table-responsive">
-                                                        <table class="table app-table-hover mb-0 text-left">
-                                                            <thead>
-                                                                <tr class="text-center">
-                                                                    <th class="cell">Kode</th>
-                                                                    <th class="cell">Jumlah</th>
-                                                                    <th class="cell">Harga</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @foreach ($invoiceIn->items as $item)
+                                                            <div class="col-auto">
+                                                                <div style="font-size: 1rem; margin-top: 10px;">
+                                                                    <i>{{ \Carbon\Carbon::parse($invoice->tgl)->format('d M Y') }}</i>
+                                                                </div>
+                                                            </div><!--//col-auto-->
+                                                        </div><!--//row-->
+                                                        <div class="table-responsive">
+                                                            <table class="table app-table-hover mb-0 text-left">
+                                                                <thead>
                                                                     <tr class="text-center">
-                                                                        <td class="cell">{{ $item->sepatu->kode }}</td>
-                                                                        <td class="cell">{{ $item->jumlah }}</td>
-                                                                        <td class="cell">Rp.
-                                                                            {{ number_format($item->harga) }}</td>
+                                                                        <th class="cell">Kode</th>
+                                                                        <th class="cell">Jumlah</th>
+                                                                        <th class="cell">Harga</th>
                                                                     </tr>
-                                                                @endforeach
-                                                            </tbody>
-                                                            <tr class="text-center">
-                                                                <td class="cell" colspan="2"><strong>TOTAL</strong>
-                                                                </td>
-                                                                <td class="cell"><strong></strong>Rp.
-                                                                    {{ number_format($invoiceIn->total) }}</td>
-                                                            </tr>
-                                                        </table>
-                                                    </div><!--//table-responsive-->
+                                                                </thead>
+                                                                <tbody>
+                                                                    
+                                                                </tbody>
+                                                                <tr class="text-center">
+                                                                    <td class="cell" colspan="2"><strong>TOTAL</strong>
+                                                                    </td>
+                                                                    <td class="cell"><strong></strong>Rp.
+                                                                        {{ number_format($invoice->total) }}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </div><!--//table-responsive-->
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endforeach
+
                                 </div><!--//table-responsive-->
                             </div><!--//app-card-body-->
                         </div><!--//app-card-->

@@ -156,12 +156,69 @@
                                                     <td class="cell">Rp. {{ number_format($invoice->total) }}
                                                     </td>
                                                     <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                            data-bs-toggle="modal" data-bs-target="#invoiceModal">View</a>
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#invoiceModal-{{ $invoice->id }}">View</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    @foreach ($invoiceOut as $index => $invoice)
+                                        <div class="modal fade" id="invoiceModal-{{ $invoice->id }}" tabindex="-1"
+                                            aria-labelledby="invoiceModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content p-md-3">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div
+                                                            class="row g-3 mb-3 align-items-center justify-content-between">
+                                                            <div class="col-auto">
+                                                                <h5 class="app-page-title mb-0">
+                                                                    {{ $invoice->nomor }}
+                                                                </h5>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <div style="font-size: 1rem; margin-top: 10px;">
+                                                                    <i>{{ \Carbon\Carbon::parse($invoice->tgl)->format('d M Y') }}</i>
+                                                                </div>
+                                                            </div><!--//col-auto-->
+                                                        </div><!--//row-->
+                                                        <div class="table-responsive">
+                                                            <table class="table app-table-hover mb-0 text-left">
+                                                                <thead>
+                                                                    <tr class="text-center">
+                                                                        <th class="cell">Kode</th>
+                                                                        <th class="cell">Jumlah</th>
+                                                                        <th class="cell">Harga</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($invoice->items as $item)
+                                                                        <tr class="text-center">
+                                                                            <td class="cell">{{ $item->sepatu->kode }}
+                                                                            </td>
+                                                                            <td class="cell">{{ $item->jumlah }}</td>
+                                                                            <td class="cell">Rp.
+                                                                                {{ number_format($item->harga) }}</td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                                <tr class="text-center">
+                                                                    <td class="cell" colspan="2"><strong>TOTAL</strong>
+                                                                    </td>
+                                                                    <td class="cell"><strong></strong>Rp.
+                                                                        {{ number_format($invoice->total) }}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </div><!--//table-responsive-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div><!--//table-responsive-->
                             </div><!--//app-card-body-->
                         </div><!--//app-card-->
