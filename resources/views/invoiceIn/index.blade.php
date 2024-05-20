@@ -157,7 +157,8 @@
                                                     <td class="cell">Rp. {{ number_format($invoice->total) }}
                                                     </td>
                                                     <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                            data-bs-toggle="modal" data-bs-target="#invoiceModal-{{ $invoice->id }}">View</a>
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#invoiceModal-{{ $invoice->id }}">View</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -165,7 +166,7 @@
                                     </table>
                                     @foreach ($invoiceIn as $index => $invoice)
                                         <div class="modal fade" id="invoiceModal-{{ $invoice->id }}" tabindex="-1"
-                                            aria-labelledby="invoiceModalLabel" aria-hidden="true">
+                                            aria-labelledby="invoiceModalLabel-{{ $invoice->id }}" aria-hidden="true">
                                             <div class="modal-dialog modal-lg">
                                                 <div class="modal-content p-md-3">
                                                     <div class="modal-header">
@@ -196,14 +197,23 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    
+                                                                    @foreach ($invoice->items as $item)
+                                                                        <tr class="text-center">
+                                                                            <td class="cell">{{ $item->sepatu->kode }}
+                                                                            </td>
+                                                                            <td class="cell">{{ $item->jumlah }}</td>
+                                                                            <td class="cell">Rp.
+                                                                                {{ number_format($item->harga) }}</td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                    <tr class="text-center">
+                                                                        <td class="cell" colspan="2">
+                                                                            <strong>TOTAL</strong>
+                                                                        </td>
+                                                                        <td class="cell"><strong></strong>Rp.
+                                                                            {{ number_format($invoice->total) }}</td>
+                                                                    </tr>
                                                                 </tbody>
-                                                                <tr class="text-center">
-                                                                    <td class="cell" colspan="2"><strong>TOTAL</strong>
-                                                                    </td>
-                                                                    <td class="cell"><strong></strong>Rp.
-                                                                        {{ number_format($invoice->total) }}</td>
-                                                                </tr>
                                                             </table>
                                                         </div><!--//table-responsive-->
                                                     </div>
@@ -211,7 +221,6 @@
                                             </div>
                                         </div>
                                     @endforeach
-
                                 </div><!--//table-responsive-->
                             </div><!--//app-card-body-->
                         </div><!--//app-card-->

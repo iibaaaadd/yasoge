@@ -61,10 +61,4 @@ class InvoiceOutController extends Controller
         // Redirect ke halaman index invoice dengan pesan sukses
         return redirect()->route('invoiceOut.index')->with('success', 'Invoice berhasil disimpan.');
     }
-
-    public function show($id)
-    {
-        $invoiceOut = InvoiceOut::with('items.sepatu')->findOrFail($id);
-        return view('invoiceOut.show', compact('invoiceOut'));
-    }
 }

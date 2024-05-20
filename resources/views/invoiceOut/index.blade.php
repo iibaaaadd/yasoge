@@ -163,9 +163,9 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    @foreach ($invoiceOut as $index => $invoice)
+                                    @foreach ($invoiceOut as $invoice)
                                         <div class="modal fade" id="invoiceModal-{{ $invoice->id }}" tabindex="-1"
-                                            aria-labelledby="invoiceModalLabel" aria-hidden="true">
+                                            aria-labelledby="invoiceModalLabel-{{ $invoice->id }}" aria-hidden="true">
                                             <div class="modal-dialog modal-lg">
                                                 <div class="modal-content p-md-3">
                                                     <div class="modal-header">
@@ -205,13 +205,13 @@
                                                                                 {{ number_format($item->harga) }}</td>
                                                                         </tr>
                                                                     @endforeach
+                                                                    <tr class="text-center">
+                                                                        <td class="cell" colspan="2">
+                                                                            <strong>TOTAL</strong></td>
+                                                                        <td class="cell"><strong></strong>Rp.
+                                                                            {{ number_format($invoice->total) }}</td>
+                                                                    </tr>
                                                                 </tbody>
-                                                                <tr class="text-center">
-                                                                    <td class="cell" colspan="2"><strong>TOTAL</strong>
-                                                                    </td>
-                                                                    <td class="cell"><strong></strong>Rp.
-                                                                        {{ number_format($invoice->total) }}</td>
-                                                                </tr>
                                                             </table>
                                                         </div><!--//table-responsive-->
                                                     </div>
