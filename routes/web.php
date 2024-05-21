@@ -5,29 +5,60 @@ use App\Http\Controllers\SepatuController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceInController;
 use App\Http\Controllers\InvoiceOutController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\UserController;
 
-Route::get('/invoicein', [InvoiceInController::class, 'index'])->name('invoiceIn.index');
-Route::get('/invoicein/create', [InvoiceInController::class, 'create'])->name('invoiceIn.create');
-Route::get('/invoicein/{id}/edit', [InvoiceInController::class, 'edit'])->name('invoiceIn.edit');
-Route::post('/invoicein', [InvoiceInController::class, 'store'])->name('invoiceIn.store');
-Route::put('/invoicein/{id}', [InvoiceInController::class, 'update'])->name('invoiceIn.update');
-Route::delete('/invoicein/{id}', [InvoiceInController::class, 'destroy'])->name('invoiceIn.destroy');
 
-Route::get('/invoiceout', [InvoiceOutController::class, 'index'])->name('invoiceOut.index');
-Route::get('/invoiceout/create', [InvoiceOutController::class, 'create'])->name('invoiceOut.create');
-Route::post('/invoiceout', [InvoiceOutController::class, 'store'])->name('invoiceOut.store');
-Route::delete('/invoiceout/{id}', [InvoiceOutController::class, 'destroy'])->name('invoiceOut.destroy');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-
-Route::get('/sepatu', [SepatuController::class, 'index'])->name('sepatu.index');
-Route::post('/sepatu', [SepatuController::class, 'store'])->name('sepatu.store');
-Route::put('/sepatu/{id}', [SepatuController::class, 'update'])->name('sepatu.update');
-Route::delete('/sepatu/{id}', [SepatuController::class, 'destroy'])->name('sepatu.destroy');
-Route::get('/sepatu/download/{id}', [SepatuController::class, 'download'])->name('sepatu.download');
 
 Route::get('/', function () {
-    return view('dashboard');
+    return view('Auth/login');
 });
 
+
+Auth::routes();
+
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+
+
+    Route::get('/invoicein', [InvoiceInController::class, 'index'])->name('invoiceIn.index');
+    Route::get('/invoicein/create', [InvoiceInController::class, 'create'])->name('invoiceIn.create');
+    Route::get('/invoicein/{id}/edit', [InvoiceInController::class, 'edit'])->name('invoiceIn.edit');
+    Route::post('/invoicein', [InvoiceInController::class, 'store'])->name('invoiceIn.store');
+    Route::put('/invoicein/{id}', [InvoiceInController::class, 'update'])->name('invoiceIn.update');
+    Route::delete('/invoicein/{id}', [InvoiceInController::class, 'destroy'])->name('invoiceIn.destroy');
+
+    Route::get('/invoiceout', [InvoiceOutController::class, 'index'])->name('invoiceOut.index');
+    Route::get('/invoiceout/create', [InvoiceOutController::class, 'create'])->name('invoiceOut.create');
+    Route::post('/invoiceout', [InvoiceOutController::class, 'store'])->name('invoiceOut.store');
+    Route::delete('/invoiceout/{id}', [InvoiceOutController::class, 'destroy'])->name('invoiceOut.destroy');
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+    Route::get('/sepatu', [SepatuController::class, 'index'])->name('sepatu.index');
+    Route::post('/sepatu', [SepatuController::class, 'store'])->name('sepatu.store');
+    Route::put('/sepatu/{id}', [SepatuController::class, 'update'])->name('sepatu.update');
+    Route::delete('/sepatu/{id}', [SepatuController::class, 'destroy'])->name('sepatu.destroy');
+    Route::get('/sepatu/download/{id}', [SepatuController::class, 'download'])->name('sepatu.download');
+
+
+    Route::middleware(['auth', 'user-access:user'])->group(function () {
+
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
+    });
+
+    Route::middleware(['auth', 'user-access:admin'])->group(function () {
+        // Route untuk dashboard admin
+        Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+
+
+    });
+
+    Route::middleware(['auth', 'user-access:manager'])->group(function () {
+
+        Route::get('/manager/home', [HomeController::class, 'managerHome'])->name('manager.home');
+    });
+});
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

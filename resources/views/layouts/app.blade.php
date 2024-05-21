@@ -53,16 +53,28 @@
                             </form>
                         </div><!--//app-search-box-->
 
+
                         <div class="app-utilities col-auto">
                             <div class="app-utility-item app-user-dropdown dropdown">
                                 <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown"
-                                    href="#" role="button" aria-expanded="false"><img
-                                        src="{{ asset('assets/images/user.png') }}" alt="user profile"></a>
+                                    href="#" role="button" aria-expanded="false">
+                                    <img src="{{ asset('assets/images/user.png') }}" alt="user profile">
+                                </a>
                                 <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
-                                    <li><a class="dropdown-item" href="login.html">Log Out</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            Log Out
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </li>
                                 </ul>
                             </div><!--//app-user-dropdown-->
                         </div><!--//app-utilities-->
+
                     </div><!--//row-->
                 </div><!--//app-header-content-->
             </div><!--//container-fluid-->
@@ -155,21 +167,25 @@
                                 </ul>
                             </div>
                         </li><!--//nav-item-->
-                        <li class="nav-item">
-                            <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link nav-link {{ request()->routeIs('user.index') ? 'active' : '' }}"
-                                href="">
-                                <span class="nav-icon">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-person"
-                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                            d="M12 1H4a1 1 0 0 0-1 1v10.755S4 11 8 11s5 1.755 5 1.755V2a1 1 0 0 0-1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
-                                        <path fill-rule="evenodd" d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                                    </svg>
-                                </span>
-                                <span class="nav-link-text">Users</span>
-                            </a><!--//nav-link-->
-                        </li><!--//nav-item-->
+
+                            <li class="nav-item">
+                                <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+                                <a class="nav-link nav-link {{ request()->routeIs('user.index') ? 'active' : '' }}"
+                                    href="">
+                                    <span class="nav-icon">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16"
+                                            class="bi bi-file-person" fill="currentColor"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M12 1H4a1 1 0 0 0-1 1v10.755S4 11 8 11s5 1.755 5 1.755V2a1 1 0 0 0-1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                                            <path fill-rule="evenodd" d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                        </svg>
+                                    </span>
+                                    <span class="nav-link-text">Users</span>
+                                </a><!--//nav-link-->
+                            </li><!--//nav-item-->
+
+
                     </ul><!--//app-menu-->
                 </nav><!--//app-nav-->
                 <div class="app-sidepanel-footer">
