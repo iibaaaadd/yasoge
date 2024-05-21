@@ -14,7 +14,6 @@ class InvoiceOutController extends Controller
     {
         $invoiceOut = InvoiceOut::with('items.sepatu')->get(); // Mendapatkan semua invoice_in beserta relasi sepatu
         return view('invoiceOut.index', compact('invoiceOut'));
-        
     }
 
     public function create()
@@ -60,5 +59,13 @@ class InvoiceOutController extends Controller
 
         // Redirect ke halaman index invoice dengan pesan sukses
         return redirect()->route('invoiceOut.index')->with('success', 'Invoice berhasil disimpan.');
+    }
+
+    public function destroy($id)
+    {
+        $invoiceOut = InvoiceOut::findOrFail($id);
+        $invoiceOut->items()->delete(); // Menghapus semua item yang terkait dengan invoice
+        $invoiceOut->delete(); // Menghapus invoice itu sendiri
+        return redirect()->route('invoiceOut.index')->with('success', 'Invoice berhasil dihapus.');
     }
 }

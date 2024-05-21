@@ -157,7 +157,7 @@
                         </li><!--//nav-item-->
                         <li class="nav-item">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link"
+                            <a class="nav-link nav-link {{ request()->routeIs('user.index') ? 'active' : '' }}"
                                 href="">
                                 <span class="nav-icon">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-person"
@@ -201,12 +201,12 @@
 
         @yield('content')
 
-        <footer class="app-footer">
+        <footer class="app-auth-footer">
             <div class="container text-center py-3 mt-5">
                 <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
                 <small class="copyright">Created <span class="sr-only">love</span><i class="fas fa-heart"
-                        style="color: #fb866a;"></i> by Yasoge @2024</small>
-
+                        style="color: #fb866a;"></i> by Yasoge @2024
+                </small>
             </div>
         </footer><!--//app-footer-->
 

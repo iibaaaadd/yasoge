@@ -65,7 +65,7 @@
                                 aliquet eros vel diam semper mollis.</div>
                         </div><!--//app-card-body-->
                         <div class="app-card-footer p-4 mt-auto">
-                            <a class="btn app-btn-secondary" href="#">Create New</a>
+                            <a class="btn app-btn-secondary" href="{{ route('invoiceOut.index') }}">Create New</a>
                         </div><!--//app-card-footer-->
                     </div><!--//app-card-->
                 </div><!--//col-->

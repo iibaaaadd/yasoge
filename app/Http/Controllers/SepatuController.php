@@ -63,7 +63,7 @@ class SepatuController extends Controller
         // Fetch the updated timestamp
         $updatedAt = $sepatu->updated_at->format('d-m-Y H:i:s');
 
-        return redirect()->route('sepatu.index')->with('success', 'Sepatu berhasil diperbarui. Diperbarui pada: ' . $updatedAt);
+        return redirect()->route('sepatu.index')->with('success', 'Sepatu berhasil diperbarui.');
     }
 
     public function destroy($id)

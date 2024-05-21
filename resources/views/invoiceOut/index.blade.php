@@ -141,6 +141,9 @@
                                                 <th class="cell">
                                                     <div class="text-center">Detail</div>
                                                 </th>
+                                                <th class="cell">
+                                                    <div class="text-center">Aksi</div>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -159,6 +162,19 @@
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#invoiceModal-{{ $invoice->id }}">View</a>
                                                     </td>
+                                                    <form id="deleteForm{{ $invoice->id }}"
+                                                        action="{{ route('invoiceOut.destroy', $invoice->id) }}"
+                                                        method="POST" class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <td class="cell">
+                                                            <button type="button"
+                                                                onclick="confirmDelete({{ $invoice->id }})"
+                                                                class="btn btn-danger">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                        </td>
+                                                    </form>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -207,7 +223,8 @@
                                                                     @endforeach
                                                                     <tr class="text-center">
                                                                         <td class="cell" colspan="2">
-                                                                            <strong>TOTAL</strong></td>
+                                                                            <strong>TOTAL</strong>
+                                                                        </td>
                                                                         <td class="cell"><strong></strong>Rp.
                                                                             {{ number_format($invoice->total) }}</td>
                                                                     </tr>
@@ -227,4 +244,23 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function confirmDelete(invoiceId) {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda tidak akan dapat mengembalikan tindakan ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus saja!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('deleteForm' + invoiceId).submit();
+                }
+            });
+        }
+    </script>
 @endsection

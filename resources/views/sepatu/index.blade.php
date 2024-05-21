@@ -5,6 +5,24 @@
         <div class="container-xl">
             <div class="mt-5">
                 <div class="row g-3 mb-4 align-items-center justify-content-between">
+                    @if (session('success'))
+                        <script>
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: '{{ session('success') }}',
+                            });
+                        </script>
+                    @endif
+                    @if ($errors->any())
+                        <script>
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: '{{ $errors->first() }}',
+                            });
+                        </script>
+                    @endif
                     <div class="col-auto">
                         <h1 class="app-page-title mb-0">Sepatu</h1>
                     </div>
@@ -119,7 +137,7 @@
                                             </li>
                                             <li>
                                                 <a class="dropdown-item" href="#"
-                                                    onclick="event.preventDefault(); document.getElementById('delete-form-{{ $item->id }}').submit();">
+                                                    onclick="event.preventDefault(); confirmDelete('{{ $item->id }}');">
                                                     <svg width="1em" height="1em" viewBox="0 0 16 16"
                                                         class="bi bi-trash me-2" fill="currentColor"
                                                         xmlns="http://www.w3.org/2000/svg">
@@ -268,12 +286,11 @@
                         </div>
                     </div>
                 @endforeach
-
-
             </div><!--//container-fluid-->
         </div><!--//app-content-->
     </div>
 
+    <!--Javascript Search-->
     <script>
         document.getElementById('search-form').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the form from submitting in the traditional way
@@ -290,5 +307,25 @@
                 }
             });
         });
+    </script>
+
+    <!--Javascript Delete-->
+    <script>
+        function confirmDelete(itemId) {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda tidak akan dapat mengembalikan tindakan ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus saja!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-form-' + itemId).submit();
+                }
+            });
+        }
     </script>
 @endsection
