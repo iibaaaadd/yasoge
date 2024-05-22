@@ -17,10 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'type'
+        'name', 'email', 'password', 'role'
     ];
 
     /**
@@ -52,6 +49,8 @@ class User extends Authenticatable
      * @param  string  $value
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
+
+     
     protected function type(): Attribute
     {
         return new Attribute(

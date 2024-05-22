@@ -6,7 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceInController;
 use App\Http\Controllers\InvoiceOutController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\UserController;
 
 
 
@@ -42,6 +42,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/sepatu/{id}', [SepatuController::class, 'update'])->name('sepatu.update');
     Route::delete('/sepatu/{id}', [SepatuController::class, 'destroy'])->name('sepatu.destroy');
     Route::get('/sepatu/download/{id}', [SepatuController::class, 'download'])->name('sepatu.download');
+
+    Route::resource('users', UserController::class);
 
 
     Route::middleware(['auth', 'user-access:user'])->group(function () {

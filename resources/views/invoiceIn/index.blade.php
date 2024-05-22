@@ -123,8 +123,8 @@
                     <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
                         <div class="app-card app-card-orders-table shadow-sm mb-5">
                             <div class="app-card-body">
-                                <div class="table-responsive">
-                                    <table class="table app-table-hover mb-0 text-left">
+                                <div class="table-responsive" style="padding: 15px">
+                                    <table id="table" class="table app-table-hover mb-0 text-left">
                                         <thead>
                                             <tr>
                                                 <th class="cell">
@@ -148,41 +148,41 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($invoiceIn as $index => $invoice)
-                                                <tr class="text-center">
-                                                    <td class="cell">{{ $index + 1 }}</td>
-                                                    <td class="cell">{{ $invoice->nomor }}</td>
-                                                    <td class="cell">
-                                                        <span>{{ \Carbon\Carbon::parse($invoice->tgl)->format('d M Y') }}</span>
-                                                        <span
-                                                            class="note">{{ \Carbon\Carbon::parse($invoice->created_at)->format('g:i A') }}</span>
-                                                    </td>
-                                                    <td class="cell">Rp. {{ number_format($invoice->total) }}
-                                                    </td>
-                                                    <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#invoiceModal-{{ $invoice->id }}">View</a>
-                                                    </td>
-                                                    <form id="deleteForm{{ $invoice->id }}"
-                                                        action="{{ route('invoiceIn.destroy', $invoice->id) }}"
-                                                        method="POST" class="d-inline">
-                                                        @csrf
-                                                        @method('DELETE')
+                                            <div class="mb-3">
+                                                @foreach ($invoiceIn as $index => $invoice)
+                                                    <tr class="text-center">
+                                                        <td class="cell">{{ $index + 1 }}</td>
+                                                        <td class="cell">{{ $invoice->nomor }}</td>
                                                         <td class="cell">
-                                                            <a href=""
-                                                                class="btn btn-warning">
-                                                                <i class="fas fa-edit"></i>
-                                                            </a>
-                                                            <button type="button"
-                                                                onclick="confirmDelete({{ $invoice->id }})"
-                                                                class="btn btn-danger">
-                                                                <i class="fas fa-trash-alt"></i>
-                                                            </button>
+                                                            <span>{{ \Carbon\Carbon::parse($invoice->tgl)->format('d M Y') }}</span>
+                                                            <span
+                                                                class="note">{{ \Carbon\Carbon::parse($invoice->created_at)->format('g:i A') }}</span>
                                                         </td>
-
-                                                    </form>
-                                                </tr>
-                                            @endforeach
+                                                        <td class="cell">Rp. {{ number_format($invoice->total) }}
+                                                        </td>
+                                                        <td class="cell"><a class="btn-sm app-btn-secondary"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#invoiceModal-{{ $invoice->id }}">View</a>
+                                                        </td>
+                                                        <form id="deleteForm{{ $invoice->id }}"
+                                                            action="{{ route('invoiceIn.destroy', $invoice->id) }}"
+                                                            method="POST" class="d-inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <td class="cell">
+                                                                <a href="" class="btn btn-warning">
+                                                                    <i class="fas fa-edit"></i>
+                                                                </a>
+                                                                <button type="button"
+                                                                    onclick="confirmDelete({{ $invoice->id }})"
+                                                                    class="btn btn-danger">
+                                                                    <i class="fas fa-trash-alt"></i>
+                                                                </button>
+                                                            </td>
+                                                        </form>
+                                                    </tr>
+                                                @endforeach
+                                            </div>
                                         </tbody>
                                     </table>
                                     @foreach ($invoiceIn as $index => $invoice)

@@ -14,6 +14,8 @@
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
     <!-- Penulisan skrip SweetAlert versi terbaru dari CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
 
@@ -168,22 +170,21 @@
                             </div>
                         </li><!--//nav-item-->
 
-                            <li class="nav-item">
-                                <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                                <a class="nav-link nav-link {{ request()->routeIs('user.index') ? 'active' : '' }}"
-                                    href="">
-                                    <span class="nav-icon">
-                                        <svg width="1em" height="1em" viewBox="0 0 16 16"
-                                            class="bi bi-file-person" fill="currentColor"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M12 1H4a1 1 0 0 0-1 1v10.755S4 11 8 11s5 1.755 5 1.755V2a1 1 0 0 0-1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
-                                            <path fill-rule="evenodd" d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                                        </svg>
-                                    </span>
-                                    <span class="nav-link-text">Users</span>
-                                </a><!--//nav-link-->
-                            </li><!--//nav-item-->
+                        <li class="nav-item">
+                            <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+                            <a class="nav-link nav-link {{ request()->routeIs('user.index') ? 'active' : '' }}"
+                                href="">
+                                <span class="nav-icon">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-person"
+                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M12 1H4a1 1 0 0 0-1 1v10.755S4 11 8 11s5 1.755 5 1.755V2a1 1 0 0 0-1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                                        <path fill-rule="evenodd" d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                    </svg>
+                                </span>
+                                <span class="nav-link-text">Users</span>
+                            </a><!--//nav-link-->
+                        </li><!--//nav-item-->
 
 
                     </ul><!--//app-menu-->
@@ -248,6 +249,25 @@
 
     <!-- Page Specific JS -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/v/bs5/dt-2.0.2/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable({
+                searching: false,
+                info: false,
+                lengthChange: false,
+                 // Disable the search box
+            });
+        });
+    </script>
 </body>
 
 </html>
