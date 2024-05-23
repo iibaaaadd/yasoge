@@ -251,11 +251,6 @@
     <script src="{{ asset('assets/js/app.js') }}"></script>
 
     <!-- DataTables JS -->
-
-    <!-- jQuery (required by DataTables) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-    <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
     
     <script>

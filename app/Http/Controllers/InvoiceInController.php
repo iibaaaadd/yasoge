@@ -63,8 +63,7 @@ class InvoiceInController extends Controller
 
     public function update(Request $request, $id)
     {
-        $invoiceIn = InvoiceIn::findOrFail($id);
-
+        // Validasi data yang dikirimkan melalui request
         $validatedData = $request->validate([
             'nomor' => 'required',
             'tgl' => 'required|date',
@@ -75,35 +74,31 @@ class InvoiceInController extends Controller
             'items.*.harga' => 'required|numeric|min:0',
         ]);
 
+        // Temukan invoice berdasarkan ID
+        $invoiceIn = InvoiceIn::findOrFail($id);
+
+        // Update data invoice
         $invoiceIn->update([
             'nomor' => $validatedData['nomor'],
             'tgl' => $validatedData['tgl'],
             'total' => $validatedData['total']
         ]);
 
-        // Hapus item yang tidak ada dalam permintaan
-        $existingItemIds = $invoiceIn->items()->pluck('id')->toArray();
-        $requestItemIds = array_column($validatedData['items'], 'id');
+        // Hapus item lama
+        InvoiceInItem::where('invoice_in_id', $invoiceIn->id)->delete();
 
-        $itemsToDelete = array_diff($existingItemIds, $requestItemIds);
-        InvoiceInItem::destroy($itemsToDelete);
-
-        // Perbarui atau buat item baru
+        // Tambahkan item baru dari request
         foreach ($validatedData['items'] as $item) {
-            InvoiceInItem::updateOrCreate(
-                [
-                    'id' => $item['id'] ?? null,
-                    'invoice_in_id' => $invoiceIn->id,
-                ],
-                [
-                    'sepatu_id' => $item['sepatu_id'],
-                    'jumlah' => $item['jumlah'],
-                    'harga' => $item['harga'],
-                ]
-            );
+            InvoiceInItem::create([
+                'invoice_in_id' => $invoiceIn->id,
+                'sepatu_id' => $item['sepatu_id'],
+                'jumlah' => $item['jumlah'],
+                'harga' => $item['harga'],
+            ]);
         }
 
-        return redirect()->route('invoiceIn.index')->with('success', 'Invoice berhasil diupdate.');
+        // Redirect ke halaman index invoice dengan pesan sukses
+        return redirect()->route('invoiceIn.index')->with('success', 'Invoice berhasil diperbarui.');
     }
 
 

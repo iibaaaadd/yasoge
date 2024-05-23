@@ -130,7 +130,7 @@
                                             text-align: center;
                                         }
 
-                                        .dt-type-numeric{
+                                        .dt-type-numeric {
                                             text-align: center !important;
                                         }
 
@@ -143,7 +143,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="cell">
-                                                    <div class=""  style="text-align:center">No</div>
+                                                    <div class="" style="text-align:center">No</div>
                                                 </th>
                                                 <th class="cell">
                                                     <div class="">ID Invoice</div>
@@ -169,7 +169,9 @@
                                                         <td class="cell">
                                                             <div class="text-center">{{ $index + 1 }}</div>
                                                         </td>
-                                                        <td class="cell"><div class="text-center">{{ $invoice->nomor }}</div></td>
+                                                        <td class="cell">
+                                                            <div class="text-center">{{ $invoice->nomor }}</div>
+                                                        </td>
                                                         <td class="cell">
                                                             <span>{{ \Carbon\Carbon::parse($invoice->tgl)->format('d M Y') }}</span>
                                                             <span
@@ -181,14 +183,21 @@
                                                                 data-bs-target="#invoiceModal-{{ $invoice->id }}">View</a>
                                                         </td>
                                                         <td class="cell">
-                                                            <a href="" class="btn btn-warning">
-                                                                <i class="fas fa-edit"></i>
-                                                            </a>
-                                                            <button type="button"
-                                                                onclick="confirmDelete({{ $invoice->id }})"
-                                                                class="btn btn-danger">
-                                                                <i class="fas fa-trash-alt"></i>
-                                                            </button>
+                                                            <form id="deleteForm{{ $invoice->id }}"
+                                                                action="{{ route('invoiceIn.destroy', $invoice->id) }}"
+                                                                method="POST" class="d-inline">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <a href="{{ route('invoiceIn.edit', $invoice->id) }}"
+                                                                    class="btn btn-warning">
+                                                                    <i class="fas fa-edit"></i>
+                                                                </a>
+                                                                <button type="button"
+                                                                    onclick="confirmDelete({{ $invoice->id }})"
+                                                                    class="btn btn-danger">
+                                                                    <i class="fas fa-trash-alt"></i>
+                                                                </button>
+                                                            </form>
                                                         </td>
                                                     </tr>
                                                 @endforeach
