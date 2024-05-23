@@ -33,6 +33,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/invoiceout', [InvoiceOutController::class, 'index'])->name('invoiceOut.index');
     Route::get('/invoiceout/create', [InvoiceOutController::class, 'create'])->name('invoiceOut.create');
     Route::post('/invoiceout', [InvoiceOutController::class, 'store'])->name('invoiceOut.store');
+    Route::get('/invoiceout/{id}/edit', [InvoiceOutController::class, 'edit'])->name('invoiceOut.edit');
+    Route::put('/invoiceout/{id}', [InvoiceOutController::class, 'update'])->name('invoiceOut.update');
     Route::delete('/invoiceout/{id}', [InvoiceOutController::class, 'destroy'])->name('invoiceOut.destroy');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');

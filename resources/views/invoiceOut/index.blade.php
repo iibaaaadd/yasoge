@@ -183,6 +183,10 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <td class="cell">
+                                                            <a href="{{ route('invoiceOut.edit', $invoice->id) }}"
+                                                                class="btn btn-warning">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
                                                             <button type="button"
                                                                 onclick="confirmDelete({{ $invoice->id }})"
                                                                 class="btn btn-danger">

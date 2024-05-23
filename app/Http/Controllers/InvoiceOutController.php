@@ -61,6 +61,53 @@ class InvoiceOutController extends Controller
         return redirect()->route('invoiceOut.index')->with('success', 'Invoice berhasil disimpan.');
     }
 
+    public function edit($id)
+    {
+        $invoiceOut = InvoiceOut::findOrFail($id);
+        $sepatuItems = Sepatu::all(); // Asumsi semua item sepatu diambil
+        return view('invoiceOut.edit', compact('invoiceOut', 'sepatuItems'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validasi data yang dikirimkan melalui request
+        $validatedData = $request->validate([
+            'nomor' => 'required',
+            'tgl' => 'required|date',
+            'total' => 'required',
+            'items' => 'required|array|min:1',
+            'items.*.sepatu_id' => 'required|exists:sepatu,id',
+            'items.*.jumlah' => 'required|integer|min:1',
+            'items.*.harga' => 'required|numeric|min:0',
+        ]);
+
+        // Temukan invoice berdasarkan ID
+        $invoiceOut = InvoiceOut::findOrFail($id);
+
+        // Update data invoice
+        $invoiceOut->update([
+            'nomor' => $validatedData['nomor'],
+            'tgl' => $validatedData['tgl'],
+            'total' => $validatedData['total']
+        ]);
+
+        // Hapus item lama
+        InvoiceOutItem::where('invoice_out_id', $invoiceOut->id)->delete();
+
+        // Tambahkan item baru dari request
+        foreach ($validatedData['items'] as $item) {
+            InvoiceOutItem::create([
+                'invoice_out_id' => $invoiceOut->id,
+                'sepatu_id' => $item['sepatu_id'],
+                'jumlah' => $item['jumlah'],
+                'harga' => $item['harga'],
+            ]);
+        }
+
+        // Redirect ke halaman index invoice dengan pesan sukses
+        return redirect()->route('invoiceOut.index')->with('success', 'Invoice berhasil diperbarui.');
+    }
+
     public function destroy($id)
     {
         $invoiceOut = InvoiceOut::findOrFail($id);

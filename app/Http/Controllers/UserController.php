@@ -58,8 +58,6 @@ class UserController extends Controller
             'type' => 'required|numeric|in:0,1,2',
         ]);
 
-        dd($user);
-
         $user->update($validatedData);
 
         return redirect()->route('users.index')->with('success', 'User updated successfully');
