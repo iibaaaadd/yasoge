@@ -14,7 +14,7 @@
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css">
 
     <!-- Penulisan skrip SweetAlert versi terbaru dari CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
@@ -172,8 +172,8 @@
 
                         <li class="nav-item">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link nav-link {{ request()->routeIs('user.index') ? 'active' : '' }}"
-                                href="">
+                            <a class="nav-link nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
+                                href="{{ route('users.index') }}">
                                 <span class="nav-icon">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-person"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -250,13 +250,13 @@
     <!-- Page Specific JS -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
 
+    <!-- DataTables JS -->
+
+    <!-- jQuery (required by DataTables) -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/v/bs5/dt-2.0.2/datatables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
     
     <script>
         $(document).ready(function() {
@@ -264,10 +264,11 @@
                 searching: false,
                 info: false,
                 lengthChange: false,
-                 // Disable the search box
+                // Disable the search box
             });
         });
     </script>
+
 </body>
 
 </html>

@@ -124,14 +124,29 @@
                         <div class="app-card app-card-orders-table shadow-sm mb-5">
                             <div class="app-card-body">
                                 <div class="table-responsive" style="padding: 15px">
-                                    <table id="table" class="table app-table-hover mb-0 text-left">
+                                    <style>
+                                        table.dataTable thead th,
+                                        table.dataTable tbody td {
+                                            text-align: center;
+                                        }
+
+                                        .dt-type-numeric{
+                                            text-align: center !important;
+                                        }
+
+                                        .table.dataTable {
+                                            margin: 0 auto;
+                                            /* Center the table horizontally */
+                                        }
+                                    </style>
+                                    <table id="table" class="table app-table-hover mb-0">
                                         <thead>
                                             <tr>
                                                 <th class="cell">
-                                                    <div class="text-center">No</div>
+                                                    <div class=""  style="text-align:center">No</div>
                                                 </th>
                                                 <th class="cell">
-                                                    <div class="text-center">ID Invoice</div>
+                                                    <div class="">ID Invoice</div>
                                                 </th>
                                                 <th class="cell">
                                                     <div class="text-center">Tanggal</div>
@@ -150,41 +165,37 @@
                                         <tbody>
                                             <div class="mb-3">
                                                 @foreach ($invoiceIn as $index => $invoice)
-                                                    <tr class="text-center">
-                                                        <td class="cell">{{ $index + 1 }}</td>
-                                                        <td class="cell">{{ $invoice->nomor }}</td>
+                                                    <tr class="">
+                                                        <td class="cell">
+                                                            <div class="text-center">{{ $index + 1 }}</div>
+                                                        </td>
+                                                        <td class="cell"><div class="text-center">{{ $invoice->nomor }}</div></td>
                                                         <td class="cell">
                                                             <span>{{ \Carbon\Carbon::parse($invoice->tgl)->format('d M Y') }}</span>
                                                             <span
                                                                 class="note">{{ \Carbon\Carbon::parse($invoice->created_at)->format('g:i A') }}</span>
                                                         </td>
-                                                        <td class="cell">Rp. {{ number_format($invoice->total) }}
-                                                        </td>
-                                                        <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                                data-bs-toggle="modal"
+                                                        <td class="cell">Rp. {{ number_format($invoice->total) }}</td>
+                                                        <td class="cell">
+                                                            <a class="btn-sm app-btn-secondary" data-bs-toggle="modal"
                                                                 data-bs-target="#invoiceModal-{{ $invoice->id }}">View</a>
                                                         </td>
-                                                        <form id="deleteForm{{ $invoice->id }}"
-                                                            action="{{ route('invoiceIn.destroy', $invoice->id) }}"
-                                                            method="POST" class="d-inline">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <td class="cell">
-                                                                <a href="" class="btn btn-warning">
-                                                                    <i class="fas fa-edit"></i>
-                                                                </a>
-                                                                <button type="button"
-                                                                    onclick="confirmDelete({{ $invoice->id }})"
-                                                                    class="btn btn-danger">
-                                                                    <i class="fas fa-trash-alt"></i>
-                                                                </button>
-                                                            </td>
-                                                        </form>
+                                                        <td class="cell">
+                                                            <a href="" class="btn btn-warning">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
+                                                            <button type="button"
+                                                                onclick="confirmDelete({{ $invoice->id }})"
+                                                                class="btn btn-danger">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </div>
                                         </tbody>
                                     </table>
+
                                     @foreach ($invoiceIn as $index => $invoice)
                                         <div class="modal fade" id="invoiceModal-{{ $invoice->id }}" tabindex="-1"
                                             aria-labelledby="invoiceModalLabel-{{ $invoice->id }}" aria-hidden="true">

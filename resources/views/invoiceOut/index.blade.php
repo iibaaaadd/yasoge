@@ -122,8 +122,23 @@
                     <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
                         <div class="app-card app-card-orders-table shadow-sm mb-5">
                             <div class="app-card-body">
-                                <div class="table-responsive">
-                                    <table class="table app-table-hover mb-0 text-left">
+                                <div class="table-responsive" style="padding: 15px">
+                                    <style>
+                                        table.dataTable thead th,
+                                        table.dataTable tbody td {
+                                            text-align: center;
+                                        }
+
+                                        .dt-type-numeric {
+                                            text-align: center !important;
+                                        }
+
+                                        .table.dataTable {
+                                            margin: 0 auto;
+                                            /* Center the table horizontally */
+                                        }
+                                    </style>
+                                    <table id="table" class="table app-table-hover mb-0 text-left">
                                         <thead>
                                             <tr>
                                                 <th class="cell">

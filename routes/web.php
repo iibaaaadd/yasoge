@@ -43,6 +43,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/sepatu/{id}', [SepatuController::class, 'destroy'])->name('sepatu.destroy');
     Route::get('/sepatu/download/{id}', [SepatuController::class, 'download'])->name('sepatu.download');
 
+    Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
+
     Route::resource('users', UserController::class);
 
 
@@ -54,8 +59,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::middleware(['auth', 'user-access:admin'])->group(function () {
         // Route untuk dashboard admin
         Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
-
-
     });
 
     Route::middleware(['auth', 'user-access:manager'])->group(function () {
