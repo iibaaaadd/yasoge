@@ -134,12 +134,11 @@
                         aria-labelledby="editUserModalLabel-{{ $user->id }}" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
-                                <div class="modal-header" style="background-color: #EEF5FF !important; color: #102C57;">
-                                    <h5 class="modal-title text-dark fw-bold m-1"
-                                        id="editUserModalLabel-{{ $user->id }}">
+                                <div class="modal-header">
+                                    <h3 class="modal-title text-dark fw-bold" id="editUserModalLabel-{{ $user->id }}">
                                         Edit User
-                                    </h5>
-                                    <button type="button" class="btn-close" data-dismiss="modal"
+                                    </h3>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -148,7 +147,9 @@
                                         @method('PUT')
                                         <div class="form-group row mt-1 mb-1">
                                             <label for="name-{{ $user->id }}"
-                                                class="col-md-4 col-form-label text-md-right">{{ __('Nama') }}</label>
+                                                class="col-md-4 col-form-label text-md-right">
+                                                <div class="fw-bold">Nama</div>
+                                            </label>
                                             <div class="col-md-8">
                                                 <input id="name-{{ $user->id }}" type="text"
                                                     class="form-control @error('name') is-invalid @enderror"
@@ -163,7 +164,9 @@
                                         </div>
                                         <div class="form-group row mt-1 mb-1">
                                             <label for="email-{{ $user->id }}"
-                                                class="col-md-4 col-form-label text-md-right">{{ __('Alamat Email') }}</label>
+                                                class="col-md-4 col-form-label text-md-right">
+                                                <div class="fw-bold">Email</div>
+                                            </label>
                                             <div class="col-md-8">
                                                 <input id="email-{{ $user->id }}" type="email"
                                                     class="form-control @error('email') is-invalid @enderror"
@@ -178,18 +181,22 @@
                                         </div>
                                         <div class="form-group row mt-1 mb-1">
                                             <label for="type-{{ $user->id }}"
-                                                class="col-md-4 col-form-label text-md-right">{{ __('Peran (type)') }}</label>
+                                                class="col-md-4 col-form-label text-md-right">
+                                                <div class="fw-bold">Peran</div>
+                                            </label>
                                             <div class="col-md-8">
                                                 <select id="type-{{ $user->id }}"
                                                     class="form-control @error('type') is-invalid @enderror"
                                                     name="type" required>
-                                                    <option value="0" {{ $user->type == 0 ? 'selected' : '' }}>
-                                                        Admin</option>
+                                                    <option value="" disabled selected>Pilih Peran</option>
+                                                    <option value="0" {{ $user->type == 0 ? 'selected' : '' }}>Admin
+                                                    </option>
                                                     <option value="1" {{ $user->type == 1 ? 'selected' : '' }}>
                                                         Manager</option>
-                                                    <option value="2" {{ $user->type == 2 ? 'selected' : '' }}>
-                                                        User</option>
+                                                    <option value="2" {{ $user->type == 2 ? 'selected' : '' }}>User
+                                                    </option>
                                                 </select>
+
                                                 @error('type')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -215,7 +222,7 @@
                     aria-labelledby="createUserModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
-                            <div class="modal-header" style="background-color: #EEF5FF !important; color: #102C57;">
+                            <div class="modal-header">
                                 <h5 class="modal-title text-dark fw-bold m-1" id="createUserModalLabel">User Baru</h5>
                                 <button type="button" class="btn-close" data-dismiss="modal"
                                     aria-label="Close"></button>
@@ -224,8 +231,9 @@
                                 <form method="POST" action="{{ route('users.store') }}">
                                     @csrf
                                     <div class="form-group row mt-1 mb-1">
-                                        <label for="name"
-                                            class="col-md-4 col-form-label text-md-right">{{ __('Nama') }}</label>
+                                        <label for="name" class="col-md-4 col-form-label text-md-right">
+                                            <div class="fw-bold">Nama</div>
+                                        </label>
                                         <div class="col-md-8">
                                             <input id="name" type="text"
                                                 class="form-control @error('name') is-invalid @enderror" name="name"
@@ -238,8 +246,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row mt-1 mb-1">
-                                        <label for="email"
-                                            class="col-md-4 col-form-label text-md-right">{{ __('Alamat Email') }}</label>
+                                        <label for="email" class="col-md-4 col-form-label text-md-right">
+                                            <div class="fw-bold">Email</div>
+                                        </label>
                                         <div class="col-md-8">
                                             <input id="email" type="email"
                                                 class="form-control @error('email') is-invalid @enderror" name="email"
@@ -252,8 +261,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row mt-1 mb-1">
-                                        <label for="password"
-                                            class="col-md-4 col-form-label text-md-right">{{ __('Kata Sandi') }}</label>
+                                        <label for="password" class="col-md-4 col-form-label text-md-right">
+                                            <div class="fw-bold">Password</div>
+                                        </label>
                                         <div class="col-md-8">
                                             <div class="input-group">
                                                 <input id="password" type="text"
@@ -273,8 +283,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row mt-1 mb-1">
-                                        <label for="type"
-                                            class="col-md-4 col-form-label text-md-right">{{ __('Peran (type)') }}</label>
+                                        <label for="type" class="col-md-4 col-form-label text-md-right">
+                                            <div class="fw-bold">Peran</div>
+                                        </label>
                                         <div class="col-md-8">
                                             <select id="type"
                                                 class="form-control @error('type_id') is-invalid @enderror" name="type"
@@ -306,6 +317,29 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const passwordInput = document.getElementById("password");
+            const generateButton = document.getElementById("generatePasswordButton");
+
+            function generateRandomPassword(length) {
+                const charset =
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]\:;?><,./-=";
+                let password = "";
+                for (let i = 0; i < length; i++) {
+                    const randomIndex = Math.floor(Math.random() * charset.length);
+                    password += charset[randomIndex];
+                }
+                return password;
+            }
+
+            generateButton.addEventListener("click", function() {
+                const generatedPassword = generateRandomPassword(12); // Change the length as needed
+                passwordInput.value = generatedPassword;
+            });
+        });
+    </script>
 
     <script>
         function confirmDelete(userId) {
