@@ -107,7 +107,7 @@
                         <div class="app-card-header p-3">
                             <div class="row justify-content-between align-items-center">
                                 <div class="col-auto">
-                                    <h4 class="app-card-title">Inoice Chart</h4>
+                                    <h4 class="app-card-title">Invoice Chart</h4>
                                 </div><!--//col-->
                                 <div class="col-auto">
                                     <div class="card-header-action">
@@ -117,9 +117,9 @@
                             </div><!--//row-->
                         </div><!--//app-card-header-->
                         <div class="app-card-body p-3 p-lg-4">
-                            <div class="app-card-body p-4">
+                            <div class="app-card-body p-1">
                                 <div class="chart-container">
-                                    <canvas id="chart-donut"></canvas>
+                                    <canvas id="chart-donut" height="125"></canvas>
                                 </div>
                             </div><!--//app-card-body-->
                         </div><!--//app-card-body-->
@@ -139,22 +139,22 @@
                                         {{ $invoiceOut }}
                                     ], // Replace with dynamic data as needed
                                     backgroundColor: [
-                                        'rgba(54, 162, 235, 0.2)',
-                                        'rgba(255, 99, 132, 0.2)'
+                                        'rgba(54, 162, 235, 0.2)', // Invoice In (biru)
+                                        'rgba(75, 192, 192, 0.2)' // Invoice Out (hijau)
                                     ],
                                     borderColor: [
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 99, 132, 1)'
+                                        'rgba(54, 162, 235, 1)', // Invoice In (biru)
+                                        'rgba(75, 192, 192, 1)' // Invoice Out (hijau)
                                     ],
                                     borderWidth: 1
                                 }]
                             },
                             options: {
                                 responsive: true,
+                                legend: {
+                                    position: 'right', // Move the legend to the right side
+                                },
                                 plugins: {
-                                    legend: {
-                                        position: 'left',
-                                    },
                                     tooltip: {
                                         callbacks: {
                                             label: function(context) {
@@ -194,6 +194,7 @@
                     });
                 </script>
 
+
                 <div class="col-12 col-lg-6">
                     <div class="app-card app-card-stats-table h-100 shadow-sm">
                         <div class="app-card-header p-3">
@@ -213,59 +214,56 @@
                                 <table class="table table-borderless mb-0">
                                     <thead>
                                         <tr>
-                                            <th class="meta">Source</th>
-                                            <th class="meta stat-cell">Views</th>
-                                            <th class="meta stat-cell">Today</th>
+                                            <th class="meta">Shoes</th>
+                                            <th class="meta stat-cell">Harga</th>
+                                            <th class="meta stat-cell">Upload</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><a href="#">google.com</a></td>
-                                            <td class="stat-cell">110</td>
-                                            <td class="stat-cell">
-                                                <svg width="1em" height="1em" viewBox="0 0 16 16"
-                                                    class="bi bi-arrow-up text-success" fill="currentColor"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
-                                                </svg>
-                                                30%
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#">getbootstrap.com</a></td>
-                                            <td class="stat-cell">67</td>
-                                            <td class="stat-cell">23%</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#">w3schools.com</a></td>
-                                            <td class="stat-cell">56</td>
-                                            <td class="stat-cell">
-                                                <svg width="1em" height="1em" viewBox="0 0 16 16"
-                                                    class="bi bi-arrow-down text-danger" fill="currentColor"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
-                                                </svg>
-                                                20%
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#">javascript.com </a></td>
-                                            <td class="stat-cell">24</td>
-                                            <td class="stat-cell">-</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#">github.com </a></td>
-                                            <td class="stat-cell">17</td>
-                                            <td class="stat-cell">15%</td>
-                                        </tr>
+                                        @php
+                                            // Mengambil 5 data terbaru dengan mengurutkan dari yang terbaru ke yang terlama
+                                            $latestShoes = $sepatu->sortByDesc('created_at')->take(5);
+                                        @endphp
+
+                                        @foreach ($latestShoes as $item)
+                                            <tr>
+                                                <td><a href="#file-link" data-bs-toggle="modal"
+                                                        data-bs-target="#viewSepatuModal_{{ $item->id }}">{{ $item->kode }}</a>
+                                                </td>
+                                                <td class="stat-cell">{{ $item->harga }}</td>
+                                                <td class="stat-cell">{{ date('d M Y', strtotime($item->created_at)) }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div><!--//table-responsive-->
                         </div><!--//app-card-body-->
                     </div><!--//app-card-->
                 </div><!--//col-->
+                @foreach ($sepatu as $item)
+                    <div class="modal fade" id="viewSepatuModal_{{ $item->id }}" tabindex="-1" role="dialog"
+                        aria-labelledby="viewSepatuModalLabel_{{ $item->id }}" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="viewSepatuModalLabel_{{ $item->id }}">
+                                        {{ $item->kode }}
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="{{ asset('foto/' . $item->gambar) }}" alt="Foto Sepatu" class="img-fluid">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
 
             </div>
         </div><!--//container-fluid-->
