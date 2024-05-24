@@ -191,13 +191,13 @@
                                                     name="type">
                                                     <option value="">Pilih Peran</option>
                                                     <option value="0"
-                                                        {{ old('type', $user->type) == 0 ? 'selected' : '' }}>Admin
+                                                        {{ old('type', $user->type) == 0 ? 'selected' : '' }}>User
                                                     </option>
                                                     <option value="1"
-                                                        {{ old('type', $user->type) == 1 ? 'selected' : '' }}>Manager
+                                                        {{ old('type', $user->type) == 1 ? 'selected' : '' }}>Admin
                                                     </option>
                                                     <option value="2"
-                                                        {{ old('type', $user->type) == 2 ? 'selected' : '' }}>User</option>
+                                                        {{ old('type', $user->type) == 2 ? 'selected' : '' }}>Manager</option>
                                                 </select>
                                                 @error('type')
                                                     <span class="invalid-feedback" role="alert">
@@ -295,9 +295,9 @@
                                                 class="form-control @error('type_id') is-invalid @enderror" name="type"
                                                 required>
                                                 <option value="">Pilih Peran</option>
-                                                <option value="0">Admin</option>
-                                                <option value="1">Manager</option>
-                                                <option value="2">User</option>
+                                                <option value="0">User</option>
+                                                <option value="1">Admin</option>
+                                                <option value="2">Manager</option>
                                             </select>
                                             @error('type_id')
                                                 <span class="invalid-feedback" role="alert">
