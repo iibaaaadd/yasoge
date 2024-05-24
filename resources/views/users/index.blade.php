@@ -129,6 +129,7 @@
                     </div>
                 </div>
 
+                <!--Modal Edit-->
                 @foreach ($users as $user)
                     <div class="modal fade" id="editUserModal-{{ $user->id }}" tabindex="-1" role="dialog"
                         aria-labelledby="editUserModalLabel-{{ $user->id }}" aria-hidden="true">
@@ -185,24 +186,26 @@
                                                 <div class="fw-bold">Peran</div>
                                             </label>
                                             <div class="col-md-8">
-                                                <select id="type-{{ $user->id }}"
+                                                <select id="type"
                                                     class="form-control @error('type') is-invalid @enderror"
-                                                    name="type" required>
-                                                    <option value="" disabled selected>Pilih Peran</option>
-                                                    <option value="0" {{ $user->type == 0 ? 'selected' : '' }}>Admin
+                                                    name="type">
+                                                    <option value="">Pilih Peran</option>
+                                                    <option value="0"
+                                                        {{ old('type', $user->type) == 0 ? 'selected' : '' }}>Admin
                                                     </option>
-                                                    <option value="1" {{ $user->type == 1 ? 'selected' : '' }}>
-                                                        Manager</option>
-                                                    <option value="2" {{ $user->type == 2 ? 'selected' : '' }}>User
+                                                    <option value="1"
+                                                        {{ old('type', $user->type) == 1 ? 'selected' : '' }}>Manager
                                                     </option>
+                                                    <option value="2"
+                                                        {{ old('type', $user->type) == 2 ? 'selected' : '' }}>User</option>
                                                 </select>
-
                                                 @error('type')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
                                             </div>
+
                                         </div>
                                         <div class="form-group row mt-3">
                                             <div class="col-md-6 offset-md-4">
@@ -218,6 +221,7 @@
                     </div>
                 @endforeach
 
+                <!--Modal Create-->
                 <div class="modal fade" id="createUserModal" tabindex="-1" role="dialog"
                     aria-labelledby="createUserModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">

@@ -36,18 +36,6 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'User berhasil dibuat.');
     }
 
-    public function show($id)
-    {
-        $user = User::find($id);
-        return view('users.show', compact('user'));
-    }
-
-    public function edit($id)
-    {
-        $user = User::find($id);
-        return view('users.edit', compact('user'));
-    }
-
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
@@ -55,7 +43,7 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email,' . $id,
-            'type' => 'required|numeric|in:0,1,2',
+            'type' => 'required|integer|in:0,1,2',
         ]);
 
         $user->update($validatedData);

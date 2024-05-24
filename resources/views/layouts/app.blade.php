@@ -64,6 +64,9 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
                                     <li>
+                                        <a class="dropdown-item">
+                                            <div class="">{{ Auth::user()->name }}</div>
+                                        </a>
                                         <a class="dropdown-item" href="#"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             Log Out
@@ -215,19 +218,41 @@
     </header><!--//app-header-->
 
     <div class="app-wrapper">
-
         @yield('content')
-
-        <footer class="app-auth-footer">
+        <footer class="app-footer">
             <div class="container text-center py-3 mt-5">
-                <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-                <small class="copyright">Created <span class="sr-only">love</span><i class="fas fa-heart"
-                        style="color: #fb866a;"></i> by Yasoge @2024
+                <small class="copyright">Created
+                    <img src="{{ asset('logo/Yasoge.png') }}" alt="Yasoge logo"
+                        style="width: 20px; height: auto; color: #fb866a;">
+                    by Yasoge @2024
                 </small>
             </div>
         </footer><!--//app-footer-->
-
     </div><!--//app-wrapper-->
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        .app-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .app-wrapper>* {
+            flex-shrink: 0;
+        }
+
+        .app-wrapper>footer {
+            margin-top: auto;
+        }
+    </style>
+
+
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -252,7 +277,7 @@
 
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
-    
+
     <script>
         $(document).ready(function() {
             $('#table').DataTable({

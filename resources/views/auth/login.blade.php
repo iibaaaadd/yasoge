@@ -28,7 +28,9 @@
                 <div class="app-auth-body mx-auto">
                     <div class="app-auth-branding mb-4"><a class="app-logo" href="index.html"><img
                                 class="logo-icon me-2" src="{{ asset('logo/Yasoge.png') }}" alt="logo"></a></div>
-                    <h2 class="auth-heading text-center mb-5">Log in to Portal</h2>
+                    <h1 class="auth-heading text-center mb-5">
+                        <div class="fw-bold">YASOGE</div>
+                    </h1>
                     <div class="auth-form-container text-start">
                         <!-- Gunakan form Laravel -->
                         <form method="POST" action="{{ route('login') }}" class="auth-form login-form">
@@ -89,23 +91,18 @@
                                     In</button>
                             </div>
                         </form>
-
-                        <div class="auth-option text-center pt-5">No Account? Sign up <a class="text-link"
-                                href="signup.html">here</a>.</div>
                     </div><!--//auth-form-container-->
-
                 </div><!--//auth-body-->
 
                 <footer class="app-auth-footer">
-                    <div class="container text-center py-3">
-                        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-                        <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart"
-                                style="color: #fb866a;"></i> by <a class="app-link"
-                                href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for
-                            developers</small>
-
+                    <div class="container text-center py-3 mt-5">
+                        <small class="copyright">Created
+                            <img src="{{ asset('logo/Yasoge.png') }}" alt="Yasoge logo"
+                                style="width: 20px; height: auto; color: #fb866a;">
+                            by Yasoge @2024
+                        </small>
                     </div>
-                </footer><!--//app-auth-footer-->
+                </footer><!--//app-footer-->
             </div><!--//flex-column-->
         </div><!--//auth-main-col-->
         <div class="col-12 col-md-5 col-lg-6 h-100 auth-background-col">
@@ -136,7 +133,7 @@
         /* Memastikan gambar menutupi seluruh container tanpa distorsi */
         object-position: center;
         /* Menjaga bagian tengah gambar tetap terlihat */
-    }   
+    }
 </style>
 
 </html>
