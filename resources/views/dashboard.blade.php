@@ -215,7 +215,7 @@
                                     <thead>
                                         <tr>
                                             <th class="meta">Shoes</th>
-                                            <th class="meta stat-cell">Harga</th>
+                                            <th class="meta stat-cell text-center">Harga</th>
                                             <th class="meta stat-cell">Upload</th>
                                         </tr>
                                     </thead>
@@ -230,7 +230,7 @@
                                                 <td><a href="#file-link" data-bs-toggle="modal"
                                                         data-bs-target="#viewSepatuModal_{{ $item->id }}">{{ $item->kode }}</a>
                                                 </td>
-                                                <td class="stat-cell">{{ $item->harga }}</td>
+                                                <td class="stat-cell text-center">Rp. {{ $item->harga }}</td>
                                                 <td class="stat-cell">{{ date('d M Y', strtotime($item->created_at)) }}
                                                 </td>
                                             </tr>
